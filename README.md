@@ -32,12 +32,13 @@ This is a repository houses the best practice deploying mailman on public clouds
 5. ***DKIM keys***
 
    5.1. Generate public key and private key
-        ```
-        openssl genrsa -out example.com-private.pem 1024 -outform PEM
-        openssl rsa -in example.com-private.pem -out example.com.pem -pubout -outform PEM
-        ```
+        
+   ```
+   openssl genrsa -out example.com-private.pem 1024 -outform PEM
+   openssl rsa -in example.com-private.pem -out example.com.pem -pubout -outform PEM
+   ```
 
-        ***note***. Change ```example.com``` to your domain name
+   ***note***. Change ```example.com``` to your domain name
 
    5.2. Configuration the ```dkim_public_key``` with example.com.pem content by ```-var 'dkim_public_key=''```
 
