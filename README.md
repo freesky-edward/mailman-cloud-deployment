@@ -1,6 +1,6 @@
 # mailman-cloud-deployment
 
-This is a repository houses the best practice deploying mailman on public clouds. Currently,will provide the deployment on [huaweicloud](https://www.huaweicloud.com), later I will try to support more public cloud provider.
+This is a repository houses the best practice deploying mailman on public clouds base on the theory ***[newto.me](http://newto.me/tech/) mailman on k8s posts***. Currently,will provide the deployment on [huaweicloud](https://www.huaweicloud.com), later I will try to support more public cloud provider.
 
 ***Note***: This repository only provide the classic deployment for miniumx resource runtime, for your workload please following the [configuration](#configuration) to change the infrastructure.
 
@@ -9,7 +9,7 @@ This is a repository houses the best practice deploying mailman on public clouds
 
 ### Prerequisite
 
-1. Cloud account. please configuration the ```provider.tf``` with your account information
+1. ***Cloud account***. please configuration the ```provider.tf``` with your account information
   user_name   = "username"     #The user name of your account
   password    = "password"     #The password of your account
   auth_url    = "https://iam.<region>.myhuaweicloud.com/v3" #Change region that you are going to run in.
@@ -17,19 +17,19 @@ This is a repository houses the best practice deploying mailman on public clouds
   tenant_name = "project"      #The project name of your account. also named tenant name.
   domain_name = "domain"       #The account name.
 
-2. DNS domain. the domain information provide by DNS ISP. e.g. godaddy.
+2. ***DNS domain***. the domain information provide by DNS ISP. e.g. godaddy.
    2.1. please login your dns management console. change the DNS server as:
         - ns1.hwclouds-dns.net 
         - ns1.hwclouds-dns.com
 
-3. Prepare the key pair. which is used to access the CCE(kubernetes cluster) node.
+3. ***Key Pair***. which is used to access the CCE(kubernetes cluster) node.
    3.1. go the the keypair service console. create one pair with name ```KeyPair-mail``` as default.
    ***note***. you can name the paire whatever you want. just to make sure keep the actual value the same as ```keypair``` variable in ***[var.tf](./infra/huaweicloud/vars.tf)*** by ```-var 'keypair=<your-name>'```.
 
-4. Configuration the cce authentication service. 
-   go to cce console and make sure the cce page which region you are going to setup work well.
+4. ***Authentication service for CCE***. 
+   go to cce(huaweicloud k8s service) console and make sure the cce page which region you are going to setup work well.
 
-5. Prepare the DKIM keys
+5. ***DKIM keys***
 
    5.1. Generate public key and private key
         ```
