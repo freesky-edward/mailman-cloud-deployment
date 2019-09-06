@@ -97,45 +97,45 @@ module "elb" {
 module "dns" {
   source = "./dns"
   
-  domain = "${var.domain}"
+  domain = "${var.domain}."
   email  = "${var.email}"
   
   records = [
     {
-      domain = "${var.sub_domain_mail}"
+      domain = "${var.sub_domain_mail}.${var.domain}."
       type  =  "A"
       value = "${split(",", module.internet.this_eip_addresses)[2]}"
     },
     {
-      domain = "${var.sub_domain_web}"
+      domain = "${var.sub_domain_web}.${var.domain}."
       type = "A"
       value = "${split(",", module.internet.this_eip_addresses)[1]}"
     },
     {
-      domain = "@"
+      domain = "${var.domain}."
       type = "MX"
-      value = "${var.sub_domain_mail}.openeuler.org"
+      value = "1 ${var.sub_domain_mail}.${var.domain}."
     },
     {
-      domain = "@"
+      domain = "${var.domain}."
       type = "TXT"
-      value = "v=spf1 a mx ip4:${split(",", module.internet.this_eip_addresses)[0]}  ~all"
+      value = "\"v=spf1 a mx ip4:${split(",", module.internet.this_eip_addresses)[0]}  ~all\""
     },
     {
-      domain = "_dmarc"
+      domain = "_dmarc.${var.domain}."
       type = "TXT"
-      value = "v=DMARC1;p=reject;sp=reject;adkim=r;aspf=r;fo=1;rf=afrf;pct=100;ruf=mailto:${var.email};ri=86400"
+      value = "\"v=DMARC1;p=reject;sp=reject;adkim=r;aspf=r;fo=1;rf=afrf;pct=100;ruf=mailto:${var.email};ri=86400\""
     },
     {
-      domain = "${var.selector}._domainkey"
+      domain = "${var.selector}._domainkey.${var.domain}."
       type = "TXT"
-      value = "v=DKIM1;k=rsa;p=${var.dkim_public_key}"
+      value = "\"v=DKIM1;k=rsa;p=${var.dkim_public_key}\""
     }
   ]
 
   ptrs = [
     {
-       domain = "${var.domain}"
+       domain = "${var.domain}."
        ip     = "${split(",", module.internet.this_eip_ids)[0]}"
     }
   ]
