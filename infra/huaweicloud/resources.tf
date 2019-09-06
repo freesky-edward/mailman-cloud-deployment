@@ -81,14 +81,14 @@ module "elb" {
       description = "The load balancer of mailman-web"
       type = "External"
       vpc_id = "${module.network.this_vpc_id}"
-      eip    = "${split(",", module.internet.this_eip_addresses)[2]}"
+      eip    = "${split(",", module.internet.this_eip_addresses)[1]}"
     },
     {
       name  =  "elb-mta"
       description = "The load balancer of mail MTA"
       type = "External"
       vpc_id = "${module.network.this_vpc_id}"
-      eip    = "${split(",", module.internet.this_eip_addresses)[1]}"
+      eip    = "${split(",", module.internet.this_eip_addresses)[2]}"
     }
   ]
 }
@@ -104,12 +104,12 @@ module "dns" {
     {
       domain = "${var.sub_domain_mail}"
       type  =  "A"
-      value = "${split(",", module.internet.this_eip_addresses)[1]}"
+      value = "${split(",", module.internet.this_eip_addresses)[2]}"
     },
     {
       domain = "${var.sub_domain_web}"
       type = "A"
-      value = "${split(",", module.internet.this_eip_addresses)[2]}"
+      value = "${split(",", module.internet.this_eip_addresses)[1]}"
     },
     {
       domain = "@"
