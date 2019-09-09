@@ -7,19 +7,19 @@ output "cce_users" {
 }
 
 output "exim4_elb_id" {
-    value = "${split(",", module.elb.this_elb_ids)[1]}"
+    value = "${length(split(",", module.elb.this_elb_ids)) > 1 ? split(",", module.elb.this_elb_ids)[1] : null}"
 }
 
 output "web_elb_id"  {
-    value = "${split(",", module.elb.this_elb_ids)[0]}"
+    value = "${length(split(",", module.elb.this_elb_ids)) > 0 ? split(",", module.elb.this_elb_ids)[0] : null}"
 }
 
 output "exim4_eip" {
-    value = "${split(",", module.internet.this_eip_addresses)[2]}"
+    value = "${length(split(",", module.internet.this_eip_addresses)) > 1? split(",", module.internet.this_eip_addresses)[2] : null}"
 }
 
 output "web_eip" {
-    value = "${split(",", module.internet.this_eip_addresses)[1]}"
+    value = "${length(split(",", module.internet.this_eip_addresses)) > 0 ? split(",", module.internet.this_eip_addresses)[1] : null}"
 }
 
 

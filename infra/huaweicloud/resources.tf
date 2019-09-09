@@ -79,15 +79,13 @@ module "elb" {
     {
       name  =  "elb-web"
       description = "The load balancer of mailman-web"
-      type = "External"
-      vpc_id = "${module.network.this_vpc_id}"
+      subnet_id = "${split(",", module.network.this_subnet_ids)[0]}"
       eip    = "${split(",", module.internet.this_eip_addresses)[1]}"
     },
     {
       name  =  "elb-mta"
       description = "The load balancer of mail MTA"
-      type = "External"
-      vpc_id = "${module.network.this_vpc_id}"
+      subnet_id = "${split(",", module.network.this_subnet_ids)[0]}"
       eip    = "${split(",", module.internet.this_eip_addresses)[2]}"
     }
   ]
